@@ -124,19 +124,33 @@ class Simulation{
     setEnvironment(environment){
         this.environment = environment
     }
-
+    
     start(){
-
         if (this.environment == null){
             console.warn("No Environment set!")
             return
         }
 
-        window.requestAnimationFrame(this.run)
+        this.run()
     }
 
+    update(){
+        this.environment.update()
+    }
+    
+    draw(){
+        this.environment.draw()
+        window.requestAnimationFrame(this.draw.bind(this))
+    }
+    
     run(){
-        window.requestAnimationFrame(this.run.bind(this))
+        let fps = 60
+        let update = this.update
+        let self = this
+        setInterval(function(){
+            update.bind(self)()
+        },1000/fps); //  note ms = 1000/fps
+        window.requestAnimationFrame(this.draw.bind(this))
     }
 }
 
@@ -180,7 +194,7 @@ function init() {
     environment.setMembers(particles)
     const simulation = new Simulation()
     simulation.setEnvironment(environment)
-    simulation.run()
+    simulation.start()
 }
 
 
