@@ -119,10 +119,15 @@ class Environment{
 class Simulation{
     constructor(){
         this.environment = null
+        this.tickRateUpdate = 30
     }
     
     setEnvironment(environment){
         this.environment = environment
+    }
+
+    setTickRateUpdate(tickRateUpdate){
+        this.tickRateUpdate = tickRateUpdate
     }
     
     start(){
@@ -166,8 +171,8 @@ const colors = ['red','blue','green','yellow','orange','brown','purple','aqua']
 const number_of_particles = 50
 const particles = []
 for (let i = 0; i<number_of_particles; i++){
-    let x = generateRandom(200,300)
-    let y = generateRandom(200,300)
+    let x = generateRandom(200,500)
+    let y = generateRandom(200,500)
     let dx = generateRandom(-5,5)
     let dy = generateRandom(-5,5)
     let ax = generateRandom(-5,5)
@@ -194,6 +199,7 @@ function init() {
     environment.setMembers(particles)
     const simulation = new Simulation()
     simulation.setEnvironment(environment)
+    simulation.setTickRateUpdate(60)
     simulation.start()
 }
 
